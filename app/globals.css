@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  --tomasho-red: #cc1a1a;
+  --tomasho-red-dark: #a01515;
+  --tomasho-red-light: #e63333;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.tomasho-red { color: var(--tomasho-red); }
+.bg-tomasho-red { background-color: var(--tomasho-red); }
+.bg-tomasho-red-dark { background-color: var(--tomasho-red-dark); }
+.border-tomasho-red { border-color: var(--tomasho-red); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
