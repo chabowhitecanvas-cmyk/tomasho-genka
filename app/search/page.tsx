@@ -55,13 +55,13 @@ export default function SearchPage() {
             </svg>
           </div>
           <input
-            type="search"
+            type="text"
+            inputMode="search"
             placeholder="商品名または商品コードで検索..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full pl-10 pr-10 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800 text-base"
             style={{ "--tw-ring-color": "#cc1a1a" } as React.CSSProperties}
-            autoFocus
           />
           {query && (
             <button
