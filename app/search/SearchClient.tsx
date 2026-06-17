@@ -36,9 +36,7 @@ export default function SearchClient({ products }: { products: Product[] }) {
   const q = query.trim().toLowerCase();
   const filtered = !q
     ? products
-    : products.filter(
-        (p) => p.name.toLowerCase().includes(q) || p.code.includes(q)
-      );
+    : products.filter((p) => p.name.toLowerCase().includes(q));
 
   return (
     <div className="flex flex-col bg-gray-50" style={{ height: "100dvh" }}>
@@ -104,7 +102,7 @@ export default function SearchClient({ products }: { products: Product[] }) {
               <p className="text-sm mt-1">別のキーワードで検索してください</p>
             </div>
           ) : (
-            <div className="space-y-2">
+            <div key={q} className="space-y-2">
               {filtered.map((product) => (
                 <div
                   key={product.code}
