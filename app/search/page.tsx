@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import products from "@/data/products.json";
 
 type Product = {
   code: string;
@@ -13,18 +12,22 @@ type Product = {
   oroshi: string;
 };
 
-const allProducts = products as Product[];
-
 export default function SearchPage() {
   const [query, setQuery] = useState("");
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return allProducts;
-    return allProducts.filter(
-      (p) => p.name.toLowerCase().includes(q) || p.code.includes(q)
-    );
-  }, [query]);
+  useEffect(() => {
+    import("@/data/products.json").then((data) => {
+      setAllProducts(data.default as Product[]);
+    });
+  }, []);
+
+  const q = query.trim().toLowerCase();
+  const filtered = !q
+    ? allProducts
+    : allProducts.filter(
+        (p) => p.name.toLowerCase().includes(q) || p.code.includes(q)
+      );
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -79,7 +82,12 @@ export default function SearchPage() {
       {/* Results */}
       <main className="flex-1 px-3 py-3">
         <div className="max-w-2xl mx-auto">
-          {filtered.length === 0 ? (
+          {allProducts.length === 0 ? (
+            <div className="text-center py-20 text-gray-300">
+              <div className="w-8 h-8 border-4 border-gray-200 border-t-red-400 rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-sm">読み込み中...</p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20 text-gray-400">
               <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -94,15 +102,12 @@ export default function SearchPage() {
                   key={product.code}
                   className="bg-white rounded-xl shadow-sm p-4 border border-gray-100"
                 >
-                  {/* 商品名 */}
                   <div className="font-bold text-gray-800 text-base mb-1">
                     <Highlight text={product.name} query={query} />
                   </div>
-                  {/* 商品コード */}
                   <div className="text-xs text-gray-400 font-mono mb-3">
                     {product.code}
                   </div>
-                  {/* 金額4列 */}
                   <div className="grid grid-cols-2 gap-2 text-center">
                     <div className="bg-gray-50 rounded-lg py-2 px-1">
                       <div className="text-xs text-gray-400 mb-0.5">運賃(ｱｲｱｲﾃｰ)</div>
