@@ -14,6 +14,24 @@ type Product = {
 
 export default function SearchClient({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [composing, setComposing] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    if (!composing) {
+      setQuery(e.target.value);
+    }
+  };
+
+  const handleCompositionStart = () => setComposing(true);
+
+  const handleCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
+    setComposing(false);
+    const val = (e.target as HTMLInputElement).value;
+    setInputValue(val);
+    setQuery(val);
+  };
 
   const q = query.trim().toLowerCase();
   const filtered = !q
@@ -54,14 +72,16 @@ export default function SearchClient({ products }: { products: Product[] }) {
             type="text"
             inputMode="search"
             placeholder="商品名または商品コードで検索..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={inputValue}
+            onChange={handleChange}
+            onCompositionStart={handleCompositionStart}
+            onCompositionEnd={handleCompositionEnd}
             className="w-full pl-10 pr-10 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:border-transparent text-gray-800 text-base"
             style={{ "--tw-ring-color": "#cc1a1a" } as React.CSSProperties}
           />
-          {query && (
+          {inputValue && (
             <button
-              onClick={() => setQuery("")}
+              onClick={() => { setQuery(""); setInputValue(""); }}
               className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
