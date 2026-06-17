@@ -23,10 +23,10 @@ export default function SearchClient({ products }: { products: Product[] }) {
       );
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="flex flex-col bg-gray-50" style={{ height: "100dvh" }}>
       {/* Header */}
       <header
-        className="flex items-center gap-3 px-4 py-3 shadow-md"
+        className="flex items-center gap-3 px-4 py-3 shadow-md flex-shrink-0"
         style={{ backgroundColor: "#cc1a1a" }}
       >
         <Link
@@ -43,7 +43,7 @@ export default function SearchClient({ products }: { products: Product[] }) {
       </header>
 
       {/* Search bar */}
-      <div className="px-4 py-3 bg-white shadow-sm sticky top-0 z-10">
+      <div className="px-4 py-3 bg-white shadow-sm flex-shrink-0">
         <div className="relative max-w-2xl mx-auto">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,8 +72,8 @@ export default function SearchClient({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      {/* Results */}
-      <main className="flex-1 px-3 py-3">
+      {/* Results — 独立スクロール領域 */}
+      <main className="flex-1 overflow-y-auto px-3 py-3">
         <div className="max-w-2xl mx-auto">
           {filtered.length === 0 ? (
             <div className="text-center py-20 text-gray-400">
