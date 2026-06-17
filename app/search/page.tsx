@@ -7,6 +7,7 @@ import products from "@/data/products.json";
 type Product = {
   code: string;
   name: string;
+  unchin: string;
   genka: string;
   kanrihi: string;
   oroshi: string;
@@ -101,8 +102,14 @@ export default function SearchPage() {
                   <div className="text-xs text-gray-400 font-mono mb-3">
                     {product.code}
                   </div>
-                  {/* 金額3列 */}
-                  <div className="grid grid-cols-3 gap-2 text-center">
+                  {/* 金額4列 */}
+                  <div className="grid grid-cols-2 gap-2 text-center">
+                    <div className="bg-gray-50 rounded-lg py-2 px-1">
+                      <div className="text-xs text-gray-400 mb-0.5">運賃(ｱｲｱｲﾃｰ)</div>
+                      <div className="text-sm font-semibold text-gray-700">
+                        ¥{Number(product.unchin).toFixed(2)}
+                      </div>
+                    </div>
                     <div className="bg-gray-50 rounded-lg py-2 px-1">
                       <div className="text-xs text-gray-400 mb-0.5">原価</div>
                       <div className="text-sm font-semibold text-gray-700">

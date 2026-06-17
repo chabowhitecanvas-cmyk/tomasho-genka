@@ -105,7 +105,7 @@ export default function Home() {
               <div className="text-red-200">データ年度</div>
               <div className="font-semibold">2026年</div>
               <div className="text-red-200">登録商品数</div>
-              <div className="font-semibold">267件</div>
+              <div className="font-semibold">260件</div>
               <div className="text-red-200">最終更新</div>
               <div className="font-semibold">2026年5月</div>
             </div>
